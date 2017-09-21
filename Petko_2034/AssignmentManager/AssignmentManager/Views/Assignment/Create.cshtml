@@ -1,0 +1,45 @@
+﻿@*ASSIGNMENT*@
+
+@model AssignmentManager.Entities.Assignment
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using(Html.BeginForm("Create", "Assignment")) 
+    //ukazwa na formata na kyde da se nasochi. pyrvoto e action-as, as votoroto e kontrolera 
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="clearfix">
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.CreatedAt)
+                        @Html.LabelFor(model => model.Title, "Title:") @**Atribut specificirasht, kakvo iskame tochno da puishe na label-a vmesto da vzeme tova koeto e vkarano za title.**@
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })  @*lambda expression, mozhe da zapishem kakvoto iskame*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row">
+            <div class="col-md-3">
+                <div class="clearfix">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, "Title:") @*Atribut specificirasht, kakvo iskame tochno da puishe na label-a vmesto da vzeme tova koeto e vkarano za title.*@
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", row = 5 })  @*lambda expression, mozhe da zapishem kakvoto iskame*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            
+            <input type="submit" value="create"  class="btn btn-success"/>
+        </div>
+
+    </div>
+}
+
