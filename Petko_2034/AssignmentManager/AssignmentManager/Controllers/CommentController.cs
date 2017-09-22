@@ -1,5 +1,6 @@
 ﻿using AssignmentManager.DataAccess;
 using AssignmentManager.Entities;
+using AssignmentManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace AssignmentManager.Controllers
         [HttpGet]
         public ActionResult Create(int id)
         {
-            Comment entity = new Comment()
+            var  model = new CommentViewModel()
             {
                 AssignmentId = id  //pri inicializaciqta na obekta oshte mu kazvame kakvo shte e AssignmentId
             };
@@ -54,11 +55,15 @@ namespace AssignmentManager.Controllers
            // entiity.AssignmentId = id;
 
 
-            return View(entity);
+            return View(model);
         }
             [HttpPost]
-        public ActionResult Create (Comment entity)
+        public ActionResult Create (CommentViewModel model)
         {
+
+            var entity = new Comment();
+            entity.AssignmentId = model.AssignmentId;
+            entity.Content = model.Content;
             entity.CreatedAt = DateTime.Now;
             entity.UpdatedAt = DateTime.Now;
 

@@ -1,5 +1,6 @@
 ﻿using AssignmentManager.DataAccess;
 using AssignmentManager.Entities;
+using AssignmentManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,32 @@ namespace AssignmentManager.Controllers
         // GET: /Assignment/
         public ActionResult Index()
         {
-            ViewBag.Title = "Assignments'List with Title";
-            List<Assignment> assignments = new List<Assignment>();
+            AssignmentListViewModel model = new AssignmentListViewModel();
+
+           model.Title = "Assignments'List with Title";
+
             AssignmentRepository assignmentRepository = new AssignmentRepository();
+            List<Assignment> assignments = new List<Assignment>();
             assignments.AddRange(assignmentRepository.GetAll());
-            return View(assignments);
+
+
+            foreach (var entity in assignments)
+            {
+                var assignmentModel = new AssignmentViewModel()
+                {
+                    Id = entity.Id,
+                    Title = entity.Title,
+                    Description = entity.Description,
+                    CreatedAt = entity.CreatedAt,
+                    UpdatedAt = entity.UpdatedAt,
+                    isDone = entity.isDone
+
+                };
+                model.Assignments.Add(assignmentModel);
+            }
+
+
+            return View(model);
           
         }
         [HttpGet]
@@ -30,12 +52,19 @@ namespace AssignmentManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Assignment entity)
+        public ActionResult Create(AssignmentViewModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+
+            }
+            var entity = new Assignment();
             entity.CreatedAt = DateTime.Now;
             entity.UpdatedAt = DateTime.Now;
             entity.isDone = false;
-
+            entity.Title = model.Title;
+            entity.Description = model.Description;
 
             var assignmentReposotory = new AssignmentRepository();
             assignmentReposotory.Insert(entity);
@@ -50,14 +79,37 @@ namespace AssignmentManager.Controllers
 
             var assignmentRepository = new AssignmentRepository();
             Assignment entity = assignmentRepository.GetbyId(id);
-            return View(entity);
+
+            var model = new AssignmentViewModel()
+            {
+                Id = entity.Id,
+                Title = entity.Title,
+                Description = entity.Description,
+                UpdatedAt = entity.UpdatedAt,
+                CreatedAt = entity.CreatedAt,
+                isDone = entity.isDone
+
+            };
+            return View(model);
         }
          [HttpPost]
-        public ActionResult Update(Assignment entity)
+        public ActionResult Update(AssignmentViewModel model)
         {
-            var assignmentRepository = new AssignmentRepository();
-            entity.UpdatedAt = DateTime.Now;
-            assignmentRepository.Update(entity);
+             if(!ModelState.IsValid)
+             {
+                 return View();
+             }
+            var entity = new Assignment();
+                entity.Id = model.Id;
+                entity.Title = model.Title;
+                entity.Description = model.Description;
+                entity.CreatedAt = DateTime.Now;
+                entity.UpdatedAt = DateTime.Now;
+                entity.isDone = entity.isDone;
+
+             var assignmentRepository = new AssignmentRepository();
+             assignmentRepository.Update(entity);
+
             return RedirectToAction("Index");
         }
 

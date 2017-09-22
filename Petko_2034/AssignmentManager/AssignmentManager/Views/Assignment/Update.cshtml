@@ -1,4 +1,4 @@
-﻿@model AssignmentManager.Entities.Assignment
+﻿@model AssignmentManager.Models.AssignmentViewModel
 
 @{
     ViewBag.Title = "Update";
@@ -8,11 +8,14 @@
 
 @using(Html.BeginForm("Update", "Assignment")) 
 {
+    @Html.ValidationSummary()
+     @Html.HiddenFor(model => model.CreatedAt)
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <div class="clearfix">
                     <div class="form-group">
+
                         @Html.LabelFor(model => model.Title, "Title:") @**Atribut specificirasht, kakvo iskame tochno da puishe na label-a vmesto da vzeme tova koeto e vkarano za title.**@
                         @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })  @*lambda expression, mozhe da zapishem kakvoto iskame*@
 
