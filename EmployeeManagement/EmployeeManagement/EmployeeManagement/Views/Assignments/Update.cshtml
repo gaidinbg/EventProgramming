@@ -1,0 +1,60 @@
+﻿@*COMMENTS*@
+
+@model EmployeeManagement.Entities.Assignment
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Update", "Assignment"))
+{
+    @Html.HiddenFor(model => model.EmployeeId)
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="clearfix">
+                    <div class="form-group">
+                       
+                        @Html.HiddenFor(model => model.EmployeeId)
+                        @Html.LabelFor(model => model.Title, "Title:") 
+                        @Html.TextAreaFor(model => model.Title, new { @class = "form-control", row = 5 }) 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="clearfix">
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.Description, "Description:")
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", row = 5 })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="clearfix">
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.Deadline, "Deadline:")
+                        @Html.TextAreaFor(model => model.Deadline, new { @class = "form-control", row = 5 })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <input type="submit" value="update" class="btn btn-success" />
+        </div>
+
+    </div>
+}
+

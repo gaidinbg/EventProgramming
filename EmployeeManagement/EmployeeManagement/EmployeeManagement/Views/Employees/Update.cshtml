@@ -1,0 +1,54 @@
+﻿
+@model EmployeeManagement.Models.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>Update</h2>
+
+@using(Html.BeginForm("Update", "Employees")) 
+{
+    @Html.ValidationSummary()
+     @Html.HiddenFor(model => model.CreatedAt)
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="clearfix">
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.FirstName, "First Name:")
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="clearfix">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, "Last Name:") 
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", row = 5 }) 
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, "Phone number:")
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", row = 5 })
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <input type="submit" value="create" class="btn btn-success" />
+        </div>
+
+    </div>
+}

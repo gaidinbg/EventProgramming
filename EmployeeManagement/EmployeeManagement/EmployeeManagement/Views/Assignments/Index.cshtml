@@ -1,0 +1,37 @@
+﻿@model List<EmployeeManagement.Entities.Assignment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h1 class="pull-left">Assignments for Employee: @ViewBag.EmployeeName</h1>
+<a href="/Assignments/Create/@ViewBag.EmployeeId" class="btn btn-info pull-right" style="margin-top: 20px">Insert</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Deadline</th>
+          
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var assignment in Model)
+        {
+            <tr>
+                
+                <td>@assignment.Title</td>
+                <td>@assignment.Description</td>
+                <td>@assignment.Deadline.ToString("dd/MM/yyyy")</td>
+               
+                <td>
+                    <a href="/Assignment/Update/@assignment.Id" class="btn btn-default">Update</a>
+                    <a href="/Assignment/Delete/@assignment.Id" class="btn btn-danger">Delete</a>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
